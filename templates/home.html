@@ -39,17 +39,8 @@
     <div class="container mt-5 border border-dark rounded opc text-light">
     <div class="mt-3"><h2>Programa que analiza el sentimiento de un texto. <i class="material-icons">spellcheck</i></h2></div>
     {% if exist %}
-      {% if txt %}
       <div class="alert alert-success" role="alert">
           Your text: {{txt}}
-      </div>
-      {% else %}
-      <div class="alert alert-success" role="alert">
-        Your text: <br>
-        {% for i in range(0,length)%}
-          {{arr[i]}}<br>
-        {%endfor%}
-      {%endif%}
       </div>
     {% elif error %}
     <div class="alert alert-danger" role="alert">

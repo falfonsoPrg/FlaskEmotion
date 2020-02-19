@@ -5,16 +5,16 @@ app = Flask(__name__)
 
 @app.route("/",methods=['POST','GET'])
 def home():
-    aux = None
+    exist = None
     txt = ""
     error = False
     if(request.method == "POST"):
         if(len(request.form['twt'].strip()) > 0):
             txt = request.form['twt']
-            aux = True
+            exist = True
         else:
             error=True
-    return render_template("home.html", exist = aux, txt=txt,error=error)
+    return render_template("home.html", exist = exist, txt=txt,error=error)
 
 @app.route("/file",methods=['GET'])
 def fileget():
@@ -22,20 +22,19 @@ def fileget():
 
 @app.route("/file",methods=['POST'])
 def file():
-    aux = None
-    arr=[]
+    exist = None
     error = False
+    txt=""
     if(request.method == "POST"):
         f = request.files['archivo']
-        
-        f.save(secure_filename(f.filename))
-        archivo = open(secure_filename(f.filename),"r")
-        for i in archivo:
-            if(i.strip()!=''):
-                arr.append(i.strip())
-        aux = True if len(arr)>0 else False
-        error = False if len(arr)>0 else True
-    return render_template("home.html", exist = aux, arr=arr, length=len(arr),error=error)   
+        for i in f:
+            txt += i.decode("ISO-8859-1")
+        if(txt.strip() != ""):
+            exist = True
+        else:
+            error = True
+            exist = False
+    return render_template("home.html", exist = exist, txt=txt,error=error)   
     
 if __name__ == "__main__":
     app.run(debug=True)
