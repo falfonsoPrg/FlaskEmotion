@@ -1,4 +1,4 @@
 /env
 .vscode/
-!requirements.txt
 *.txt
+!requirements.txt
